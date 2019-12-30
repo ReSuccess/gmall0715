@@ -3,12 +3,16 @@ package com.atguigu.gmall0715.manage.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.gmall0715.bean.*;
 import com.atguigu.gmall0715.service.ManageService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
+ * 平台属性控制器
+ *  — 一级分类查询
+ *  — 二级分类查询
+ *  — 三级分类查询
+ *  — 平台属性+平台属性值
  * @author sujie
  * @date 2019-12-27-16:51
  */
