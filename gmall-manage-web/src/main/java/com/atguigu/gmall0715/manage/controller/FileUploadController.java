@@ -40,6 +40,7 @@ public class FileUploadController {
         //拼接文件存储路径
         StringBuilder path = new StringBuilder(filePath);
         for (String str: uploadFile) {
+            path.append("/");
             path.append(str);
         }
         return path.toString();
