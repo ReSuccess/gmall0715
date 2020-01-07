@@ -1,11 +1,10 @@
 package com.atguigu.gmall0715.manage.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.atguigu.gmall0715.bean.SkuImage;
-import com.atguigu.gmall0715.bean.SkuInfo;
-import com.atguigu.gmall0715.bean.SpuImage;
-import com.atguigu.gmall0715.bean.SpuSaleAttr;
+import com.atguigu.gmall0715.bean.*;
+import com.atguigu.gmall0715.service.ListService;
 import com.atguigu.gmall0715.service.ManageService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +22,8 @@ public class SkuManageController {
     @Reference
     private ManageService manageService;
 
+    @Reference
+    private ListService listService;
     /**
      * 查询指定spu的图片信息
      * http://192.168.116.1:8082/spuImageList?spuId=61
@@ -53,6 +54,20 @@ public class SkuManageController {
     @RequestMapping("saveSkuInfo")
     public void saveSkuInfo(@RequestBody SkuInfo skuInfo){
         manageService.saveSkuInfo(skuInfo);
-
+        // 保存完成之后商品上架：
+        // 发送消息队列异步处理！通知管理员做审核，审核成功之后，商品上架{saveSkuLsInfo}
     }
+
+    /**
+     * 临时的上架sku接口
+     * @param skuId
+     */
+    @RequestMapping("onSale")
+    public void onSale(String skuId){
+        SkuInfo skuInfo = manageService.getSkuInfoPage(skuId);
+        SkuLsInfo skuLsInfo = new SkuLsInfo();
+        BeanUtils.copyProperties(skuInfo, skuLsInfo);
+        listService.saveSkuLsInfo(skuLsInfo);
+    }
+
 }
