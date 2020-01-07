@@ -1,14 +1,13 @@
 package com.atguigu.gmall0715.gmalllistweb.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.alibaba.fastjson.JSON;
 import com.atguigu.gmall0715.bean.SkuLsParams;
 import com.atguigu.gmall0715.bean.SkuLsResult;
 import com.atguigu.gmall0715.service.ListService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 /**
  * @author sujie
@@ -25,9 +24,12 @@ public class ListController {
      * @return
      */
     @RequestMapping("list.html")
-    @ResponseBody
-    public String getList(SkuLsParams skuLsParams){
+    public String getList(SkuLsParams skuLsParams, Model model){
         SkuLsResult skuLsResult = listService.search(skuLsParams);
-        return JSON.toJSONString(skuLsResult);
+        //sku列表
+        if(skuLsResult != null){
+            model.addAttribute("skuLsInfoList",skuLsResult.getSkuLsInfoList());
+        }
+        return "list";
     }
 }
