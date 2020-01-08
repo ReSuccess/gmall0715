@@ -2,6 +2,7 @@ package com.atguigu.gmall0715.gmallitemweb.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
+import com.atguigu.gmall0715.annotation.LoginRequire;
 import com.atguigu.gmall0715.bean.SkuInfo;
 import com.atguigu.gmall0715.bean.SkuSaleAttrValue;
 import com.atguigu.gmall0715.bean.SpuSaleAttr;
@@ -31,6 +32,7 @@ public class ItemController {
      * @param model
      * @return
      */
+    @LoginRequire
     @RequestMapping("{skuId}.html")
     public String skuInfoPage(@PathVariable("skuId") String skuId, Model model){
        //详情页基本数据

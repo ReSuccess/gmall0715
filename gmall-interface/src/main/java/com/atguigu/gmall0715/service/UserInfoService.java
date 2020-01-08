@@ -22,4 +22,18 @@ public interface UserInfoService {
      * @return
      */
     List<UserAddress> getUserAddressByUserId(String userId);
+
+    /**
+     * 登录，并返回登录信息
+     * @return 登录用户信息
+     * @param userInfo
+     */
+    UserInfo login(UserInfo userInfo);
+
+    /**
+     * 查询redis中是否存在该用户信息，即是否登录
+     * @param userId
+     * @return
+     */
+    UserInfo verify(String userId);
 }

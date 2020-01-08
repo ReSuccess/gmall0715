@@ -1,6 +1,7 @@
 package com.atguigu.gmall0715.gmalllistweb.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.atguigu.gmall0715.annotation.LoginRequire;
 import com.atguigu.gmall0715.bean.SkuLsParams;
 import com.atguigu.gmall0715.bean.SkuLsResult;
 import com.atguigu.gmall0715.service.ListService;
